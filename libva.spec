@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 1.7.0
-Release  : 1
+Release  : 2
 URL      : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.0.tar.bz2
 Source0  : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.0.tar.bz2
 Summary  : Userspace Video Acceleration (VA) 3rd party interface
@@ -56,6 +56,13 @@ lib components for the libva package.
 %setup -q -n libva-1.7.0
 
 %build
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -fno-semantic-interposition -falign-functions=32 -flto "
+export FCFLAGS="$CFLAGS -O3 -fno-semantic-interposition -falign-functions=32 -flto "
+export FFLAGS="$CFLAGS -O3 -fno-semantic-interposition -falign-functions=32 -flto "
+export CXXFLAGS="$CXXFLAGS -O3 -fno-semantic-interposition -falign-functions=32 -flto "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
