@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 1.7.0
-Release  : 4
+Release  : 5
 URL      : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.0.tar.bz2
 Source0  : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.0.tar.bz2
 Summary  : Userspace Video Acceleration (VA) 3rd party interface
