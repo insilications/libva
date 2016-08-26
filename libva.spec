@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 1.7.1
-Release  : 7
+Release  : 8
 URL      : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.1.tar.bz2
 Source0  : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.1.tar.bz2
 Summary  : Userspace Video Acceleration (VA) ${display} interface
@@ -15,6 +15,7 @@ Requires: libva-lib
 BuildRequires : pkgconfig(egl)
 BuildRequires : pkgconfig(gl)
 BuildRequires : pkgconfig(libdrm)
+BuildRequires : pkgconfig(wayland-client)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xext)
 BuildRequires : pkgconfig(xfixes)
@@ -56,13 +57,14 @@ lib components for the libva package.
 %setup -q -n libva-1.7.1
 
 %build
+export LANG=C
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 -flto "
-export FCFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 -flto "
-export FFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 -flto "
-export CXXFLAGS="$CXXFLAGS -falign-functions=32 -fno-semantic-interposition -O3 -flto "
+export CFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 "
+export FCFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 "
+export FFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -O3 "
+export CXXFLAGS="$CXXFLAGS -falign-functions=32 -fno-semantic-interposition -O3 "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -89,6 +91,7 @@ rm -rf %{buildroot}
 /usr/bin/mpeg2vaenc
 /usr/bin/mpeg2vldemo
 /usr/bin/putsurface
+/usr/bin/putsurface_wayland
 /usr/bin/vainfo
 
 %files dev
@@ -99,6 +102,7 @@ rm -rf %{buildroot}
 /usr/include/va/va_backend_glx.h
 /usr/include/va/va_backend_tpi.h
 /usr/include/va/va_backend_vpp.h
+/usr/include/va/va_backend_wayland.h
 /usr/include/va/va_compat.h
 /usr/include/va/va_dec_hevc.h
 /usr/include/va/va_dec_jpeg.h
@@ -119,6 +123,7 @@ rm -rf %{buildroot}
 /usr/include/va/va_tpi.h
 /usr/include/va/va_version.h
 /usr/include/va/va_vpp.h
+/usr/include/va/va_wayland.h
 /usr/include/va/va_x11.h
 /usr/lib64/*.so
 /usr/lib64/pkgconfig/*.pc

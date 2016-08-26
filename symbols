@@ -6,6 +6,9 @@ libva-glx.so.1:vaDestroySurfaceGLX
 libva-glx.so.1:vaGetDisplayGLX
 libva-tpi.so.1:vaCreateSurfacesWithAttribute
 libva-tpi.so.1:vaPutSurfaceBuf
+libva-wayland.so.1:vaGetDisplayWl
+libva-wayland.so.1:vaGetImageBufferWl
+libva-wayland.so.1:vaGetSurfaceBufferWl
 libva-x11.so.1:VA_DRI2Authenticate
 libva-x11.so.1:VA_DRI2Connect
 libva-x11.so.1:VA_DRI2CopyRegion

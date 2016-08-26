@@ -8,3 +8,4 @@ libdl.so.2
 libdrm.so.2
 libm.so.6
 libpthread.so.0
+libwayland-client.so.0
