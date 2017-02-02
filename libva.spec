@@ -4,10 +4,10 @@
 #
 Name     : libva
 Version  : 1.7.3
-Release  : 10
-URL      : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.3.tar.bz2
-Source0  : https://www.freedesktop.org/software/vaapi/releases/libva/libva-1.7.3.tar.bz2
-Summary  : Userspace Video Acceleration (VA) 3rd party interface
+Release  : 11
+URL      : https://github.com/01org/libva/archive/libva-1.7.3.tar.gz
+Source0  : https://github.com/01org/libva/archive/libva-1.7.3.tar.gz
+Summary  : Video Acceleration (VA) API for Linux
 Group    : Development/Tools
 License  : MIT
 Requires: libva-bin
@@ -21,10 +21,8 @@ BuildRequires : pkgconfig(xext)
 BuildRequires : pkgconfig(xfixes)
 
 %description
-libva for Debian
-----------------
-This library implements the Video Acceleration (VA) API for Linux.
-It will load a hardware dependendent video acceleration driver.
+The libva library implements the Video Acceleration (VA) API for Linux.
+The library loads a hardware dependendent driver.
 
 %package bin
 Summary: bin components for the libva package.
@@ -54,15 +52,16 @@ lib components for the libva package.
 
 
 %prep
-%setup -q -n libva-1.7.3
+%setup -q -n libva-libva-1.7.3
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1486062968
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-%configure --disable-static
+%autogen --disable-static
 make V=1  %{?_smp_mflags}
 
 %check
@@ -73,6 +72,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
+export SOURCE_DATE_EPOCH=1486062968
 rm -rf %{buildroot}
 %make_install
 
@@ -122,10 +122,35 @@ rm -rf %{buildroot}
 /usr/include/va/va_vpp.h
 /usr/include/va/va_wayland.h
 /usr/include/va/va_x11.h
-/usr/lib64/*.so
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/libva-drm.so
+/usr/lib64/libva-egl.so
+/usr/lib64/libva-glx.so
+/usr/lib64/libva-tpi.so
+/usr/lib64/libva-wayland.so
+/usr/lib64/libva-x11.so
+/usr/lib64/libva.so
+/usr/lib64/pkgconfig/libva-drm.pc
+/usr/lib64/pkgconfig/libva-egl.pc
+/usr/lib64/pkgconfig/libva-glx.pc
+/usr/lib64/pkgconfig/libva-tpi.pc
+/usr/lib64/pkgconfig/libva-wayland.pc
+/usr/lib64/pkgconfig/libva-x11.pc
+/usr/lib64/pkgconfig/libva.pc
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
 /usr/lib64/dri/dummy_drv_video.so
+/usr/lib64/libva-drm.so.1
+/usr/lib64/libva-drm.so.1.3904.0
+/usr/lib64/libva-egl.so.1
+/usr/lib64/libva-egl.so.1.3904.0
+/usr/lib64/libva-glx.so.1
+/usr/lib64/libva-glx.so.1.3904.0
+/usr/lib64/libva-tpi.so.1
+/usr/lib64/libva-tpi.so.1.3904.0
+/usr/lib64/libva-wayland.so.1
+/usr/lib64/libva-wayland.so.1.3904.0
+/usr/lib64/libva-x11.so.1
+/usr/lib64/libva-x11.so.1.3904.0
+/usr/lib64/libva.so.1
+/usr/lib64/libva.so.1.3904.0
