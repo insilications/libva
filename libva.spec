@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 1.7.3
-Release  : 11
+Release  : 12
 URL      : https://github.com/01org/libva/archive/libva-1.7.3.tar.gz
 Source0  : https://github.com/01org/libva/archive/libva-1.7.3.tar.gz
 Summary  : Video Acceleration (VA) API for Linux
@@ -56,7 +56,7 @@ lib components for the libva package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1486062968
+export SOURCE_DATE_EPOCH=1486080485
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -72,7 +72,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1486062968
+export SOURCE_DATE_EPOCH=1486080485
 rm -rf %{buildroot}
 %make_install
 
