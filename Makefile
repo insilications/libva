@@ -1,5 +1,5 @@
 PKG_NAME := libva
-URL := https://github.com/01org/libva/archive/libva-1.7.3.tar.gz
+URL := https://github.com/01org/libva/releases/download/1.8.0/libva-1.8.0.tar.bz2
 
 
 include ../common/Makefile.common
