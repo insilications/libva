@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 1.8.1
-Release  : 14
+Release  : 15
 URL      : https://github.com/01org/libva/releases/download/1.8.1/libva-1.8.1.tar.bz2
 Source0  : https://github.com/01org/libva/releases/download/1.8.1/libva-1.8.1.tar.bz2
 Summary  : Userspace Video Acceleration (VA) 3rd party interface
