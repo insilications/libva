@@ -4,12 +4,12 @@
 #
 Name     : libva
 Version  : 1.8.2
-Release  : 17
-URL      : https://github.com/01org/intel-vaapi-driver/archive/1.8.2.tar.gz
-Source0  : https://github.com/01org/intel-vaapi-driver/archive/1.8.2.tar.gz
-Summary  : No detailed summary available
+Release  : 18
+URL      : https://github.com/01org/libva/releases/download/1.8.2/libva-1.8.2.tar.bz2
+Source0  : https://github.com/01org/libva/releases/download/1.8.2/libva-1.8.2.tar.bz2
+Summary  : Userspace Video Acceleration (VA) 3rd party interface
 Group    : Development/Tools
-License  : BSD-3-Clause MIT
+License  : MIT
 Requires: libva-lib
 BuildRequires : gcc-dev32
 BuildRequires : gcc-libgcc32
@@ -17,33 +17,42 @@ BuildRequires : gcc-libstdc++32
 BuildRequires : glibc-dev32
 BuildRequires : glibc-libc32
 BuildRequires : pkgconfig(32egl)
+BuildRequires : pkgconfig(32gl)
 BuildRequires : pkgconfig(32libdrm)
-BuildRequires : pkgconfig(32libva)
-BuildRequires : pkgconfig(32libva-drm)
-BuildRequires : pkgconfig(32libva-wayland)
-BuildRequires : pkgconfig(32libva-x11)
 BuildRequires : pkgconfig(32wayland-client)
 BuildRequires : pkgconfig(32x11)
 BuildRequires : pkgconfig(32xext)
 BuildRequires : pkgconfig(32xfixes)
 BuildRequires : pkgconfig(egl)
+BuildRequires : pkgconfig(gl)
 BuildRequires : pkgconfig(libdrm)
-BuildRequires : pkgconfig(libva)
-BuildRequires : pkgconfig(libva-drm)
-BuildRequires : pkgconfig(libva-wayland)
-BuildRequires : pkgconfig(libva-x11)
 BuildRequires : pkgconfig(wayland-client)
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xext)
 BuildRequires : pkgconfig(xfixes)
-BuildRequires : python-dev
 
 %description
-intel-vaapi-driver
-VA driver for Intel G45 & HD Graphics family
-License
--------
-Please read the COPYING file available in this package.
+No detailed description available
+
+%package dev
+Summary: dev components for the libva package.
+Group: Development
+Requires: libva-lib
+Provides: libva-devel
+
+%description dev
+dev components for the libva package.
+
+
+%package dev32
+Summary: dev32 components for the libva package.
+Group: Default
+Requires: libva-lib32
+Requires: libva-dev
+
+%description dev32
+dev32 components for the libva package.
+
 
 %package lib
 Summary: lib components for the libva package.
@@ -62,9 +71,9 @@ lib32 components for the libva package.
 
 
 %prep
-%setup -q -n intel-vaapi-driver-1.8.2
+%setup -q -n libva-1.8.2
 pushd ..
-cp -a intel-vaapi-driver-1.8.2 build32
+cp -a libva-1.8.2 build32
 popd
 
 %build
@@ -72,12 +81,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1495507056
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-%autogen --disable-static
+export SOURCE_DATE_EPOCH=1498321458
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto -fno-semantic-interposition "
+%configure --disable-static
 make V=1  %{?_smp_mflags}
 
 pushd ../build32/
@@ -85,7 +97,7 @@ export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
-%autogen --disable-static   --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make V=1  %{?_smp_mflags}
 popd
 %check
@@ -96,7 +108,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1495507056
+export SOURCE_DATE_EPOCH=1498321458
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
@@ -112,10 +124,108 @@ popd
 %files
 %defattr(-,root,root,-)
 
+%files dev
+%defattr(-,root,root,-)
+/usr/include/va/va.h
+/usr/include/va/va_backend.h
+/usr/include/va/va_backend_egl.h
+/usr/include/va/va_backend_glx.h
+/usr/include/va/va_backend_tpi.h
+/usr/include/va/va_backend_vpp.h
+/usr/include/va/va_backend_wayland.h
+/usr/include/va/va_compat.h
+/usr/include/va/va_dec_hevc.h
+/usr/include/va/va_dec_jpeg.h
+/usr/include/va/va_dec_vp8.h
+/usr/include/va/va_dec_vp9.h
+/usr/include/va/va_dri2.h
+/usr/include/va/va_dricommon.h
+/usr/include/va/va_drm.h
+/usr/include/va/va_drmcommon.h
+/usr/include/va/va_egl.h
+/usr/include/va/va_enc_h264.h
+/usr/include/va/va_enc_hevc.h
+/usr/include/va/va_enc_jpeg.h
+/usr/include/va/va_enc_mpeg2.h
+/usr/include/va/va_enc_vp8.h
+/usr/include/va/va_enc_vp9.h
+/usr/include/va/va_glx.h
+/usr/include/va/va_tpi.h
+/usr/include/va/va_version.h
+/usr/include/va/va_vpp.h
+/usr/include/va/va_wayland.h
+/usr/include/va/va_x11.h
+/usr/lib64/libva-drm.so
+/usr/lib64/libva-egl.so
+/usr/lib64/libva-glx.so
+/usr/lib64/libva-tpi.so
+/usr/lib64/libva-wayland.so
+/usr/lib64/libva-x11.so
+/usr/lib64/libva.so
+/usr/lib64/pkgconfig/libva-drm.pc
+/usr/lib64/pkgconfig/libva-egl.pc
+/usr/lib64/pkgconfig/libva-glx.pc
+/usr/lib64/pkgconfig/libva-tpi.pc
+/usr/lib64/pkgconfig/libva-wayland.pc
+/usr/lib64/pkgconfig/libva-x11.pc
+/usr/lib64/pkgconfig/libva.pc
+
+%files dev32
+%defattr(-,root,root,-)
+/usr/lib32/libva-drm.so
+/usr/lib32/libva-egl.so
+/usr/lib32/libva-glx.so
+/usr/lib32/libva-tpi.so
+/usr/lib32/libva-wayland.so
+/usr/lib32/libva-x11.so
+/usr/lib32/libva.so
+/usr/lib32/pkgconfig/32libva-drm.pc
+/usr/lib32/pkgconfig/32libva-egl.pc
+/usr/lib32/pkgconfig/32libva-glx.pc
+/usr/lib32/pkgconfig/32libva-tpi.pc
+/usr/lib32/pkgconfig/32libva-wayland.pc
+/usr/lib32/pkgconfig/32libva-x11.pc
+/usr/lib32/pkgconfig/32libva.pc
+/usr/lib32/pkgconfig/libva-drm.pc
+/usr/lib32/pkgconfig/libva-egl.pc
+/usr/lib32/pkgconfig/libva-glx.pc
+/usr/lib32/pkgconfig/libva-tpi.pc
+/usr/lib32/pkgconfig/libva-wayland.pc
+/usr/lib32/pkgconfig/libva-x11.pc
+/usr/lib32/pkgconfig/libva.pc
+
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/dri/i965_drv_video.so
+/usr/lib64/dri/dummy_drv_video.so
+/usr/lib64/libva-drm.so.1
+/usr/lib64/libva-drm.so.1.4000.0
+/usr/lib64/libva-egl.so.1
+/usr/lib64/libva-egl.so.1.4000.0
+/usr/lib64/libva-glx.so.1
+/usr/lib64/libva-glx.so.1.4000.0
+/usr/lib64/libva-tpi.so.1
+/usr/lib64/libva-tpi.so.1.4000.0
+/usr/lib64/libva-wayland.so.1
+/usr/lib64/libva-wayland.so.1.4000.0
+/usr/lib64/libva-x11.so.1
+/usr/lib64/libva-x11.so.1.4000.0
+/usr/lib64/libva.so.1
+/usr/lib64/libva.so.1.4000.0
 
 %files lib32
 %defattr(-,root,root,-)
-/usr/lib32/dri/i965_drv_video.so
+/usr/lib32/dri/dummy_drv_video.so
+/usr/lib32/libva-drm.so.1
+/usr/lib32/libva-drm.so.1.4000.0
+/usr/lib32/libva-egl.so.1
+/usr/lib32/libva-egl.so.1.4000.0
+/usr/lib32/libva-glx.so.1
+/usr/lib32/libva-glx.so.1.4000.0
+/usr/lib32/libva-tpi.so.1
+/usr/lib32/libva-tpi.so.1.4000.0
+/usr/lib32/libva-wayland.so.1
+/usr/lib32/libva-wayland.so.1.4000.0
+/usr/lib32/libva-x11.so.1
+/usr/lib32/libva-x11.so.1.4000.0
+/usr/lib32/libva.so.1
+/usr/lib32/libva.so.1.4000.0
