@@ -98,6 +98,7 @@ libva.so.1:va_FoolCreateConfig
 libva.so.1:va_FoolEnd
 libva.so.1:va_FoolInit
 libva.so.1:va_FoolMapBuffer
+libva.so.1:va_MessagingInit
 libva.so.1:va_TracePutSurface
 libva.so.1:va_errorMessage
 libva.so.1:va_infoMessage
