@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 2.0.0
-Release  : 24
+Release  : 25
 URL      : https://github.com/01org/libva/releases/download/2.0.0/libva-2.0.0.tar.bz2
 Source0  : https://github.com/01org/libva/releases/download/2.0.0/libva-2.0.0.tar.bz2
 Summary  : Userspace Video Acceleration (VA) core interface
@@ -80,7 +80,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1508618833
+export SOURCE_DATE_EPOCH=1511117059
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -89,7 +89,7 @@ export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %configure --disable-static
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
@@ -97,7 +97,7 @@ export CFLAGS="$CFLAGS -m32"
 export CXXFLAGS="$CXXFLAGS -m32"
 export LDFLAGS="$LDFLAGS -m32"
 %configure --disable-static    --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 popd
 %check
 export LANG=C
@@ -107,7 +107,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1508618833
+export SOURCE_DATE_EPOCH=1511117059
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
