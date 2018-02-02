@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 2.0.0
-Release  : 25
+Release  : 26
 URL      : https://github.com/01org/libva/releases/download/2.0.0/libva-2.0.0.tar.bz2
 Source0  : https://github.com/01org/libva/releases/download/2.0.0/libva-2.0.0.tar.bz2
 Summary  : Userspace Video Acceleration (VA) core interface
