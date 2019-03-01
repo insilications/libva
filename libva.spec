@@ -4,10 +4,10 @@
 #
 Name     : libva
 Version  : 2.4.0
-Release  : 35
+Release  : 36
 URL      : https://github.com/intel/libva/archive/2.4.0.tar.gz
 Source0  : https://github.com/intel/libva/archive/2.4.0.tar.gz
-Summary  : Video Acceleration (VA) API for Linux
+Summary  : Userspace Video Acceleration (VA) core interface
 Group    : Development/Tools
 License  : MIT
 Requires: libva-lib = %{version}-%{release}
@@ -95,7 +95,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1549124737
+export SOURCE_DATE_EPOCH=1551302319
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -107,10 +107,10 @@ CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --b
 ninja -v -C builddir
 pushd ../build32
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-export ASFLAGS="$ASFLAGS --32"
-export CFLAGS="$CFLAGS -m32"
-export CXXFLAGS="$CXXFLAGS -m32"
-export LDFLAGS="$LDFLAGS -m32"
+export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
 meson --libdir=/usr/lib32 --prefix /usr --buildtype=plain   builddir
 ninja -v -C builddir
 popd
