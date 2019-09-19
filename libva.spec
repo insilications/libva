@@ -4,7 +4,7 @@
 #
 Name     : libva
 Version  : 2.5.0
-Release  : 39
+Release  : 40
 URL      : https://github.com/intel/libva/archive/2.5.0.tar.gz
 Source0  : https://github.com/intel/libva/archive/2.5.0.tar.gz
 Summary  : Userspace Video Acceleration (VA) core interface
@@ -95,25 +95,25 @@ popd
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1562799777
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568867109
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=44 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=44 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=44 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=44 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain   builddir
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
 pushd ../build32
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
-export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32"
-export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32"
-export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32"
-meson --libdir=/usr/lib32 --prefix /usr --buildtype=plain   builddir
+export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
+export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
+export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+meson --libdir=lib32 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
 popd
 
