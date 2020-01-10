@@ -1,4 +1,5 @@
 libva-drm.so.2:VA_DRM_GetDriverName
+libva-drm.so.2:VA_DRM_GetNumCandidates
 libva-drm.so.2:VA_DRM_IsRenderNodeFd
 libva-drm.so.2:vaGetDisplayDRM
 libva-drm.so.2:va_drm_authenticate
@@ -9,6 +10,7 @@ libva-glx.so.2:vaDestroySurfaceGLX
 libva-glx.so.2:vaGetDisplayGLX
 libva-glx.so.2:va_glx_init_context
 libva-wayland.so.2:VA_DRM_GetDriverName
+libva-wayland.so.2:VA_DRM_GetNumCandidates
 libva-wayland.so.2:VA_DRM_IsRenderNodeFd
 libva-wayland.so.2:vaGetDisplayWl
 libva-wayland.so.2:vaGetImageBufferWl
