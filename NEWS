@@ -1,5 +1,50 @@
-libva NEWS -- summary of user visible changes.  2019-12-25
-Copyright (C) 2009-2019 Intel Corporation
+libva NEWS -- summary of user visible changes.  2020-09-11
+Copyright (C) 2009-2020 Intel Corporation
+
+version 2.9.0 - 11.Sep.2020
+* trace: Refine the va_TraceVAPictureParameterBufferAV1.
+* doc: Add comments for backward/forward reference to avoid confusion
+* doc: Modify comments in av1 decoder interfaces
+* doc: Update mailing list
+* Add SCC fields trace for HEVC SCC encoding.
+* Add FOURCC code for Y212 and Y412 format.
+* Add interpolation method for scaling.
+* add attributes for context priority setting
+* Add vaSyncBuffer for output buffers synchronization
+* Add vaSyncSurface2 with timeout
+
+version 2.8.0 - 18.Jun.2020
+* trace: enable return value trace for successful function call
+* trace: divide va_TraceEndPicture to two seperate function
+* trace: add support for VAProfileHEVCSccMain444_10
+* fix:Fixes file descriptor leak
+* add fourcc code for P012 format
+* travis: Add a test that code files don't have the exec bit set
+* Remove the execute bit from all source code files
+* meson: Allow for libdir and includedir to be absolute paths
+* trace: Fix format string warnings
+* fix:Fix clang warning (reading garbage)
+* add definition to enforce both reflist not empty
+* trace: List correct field names in va_TraceVAPictureParameterBufferHEVC
+* change the return value to be UNIMPLEMENTED when the function pointer is NULL
+* remove check of vaPutSurface implementation
+* Add new slice structure flag for CAPS reporting
+* VA/X11: VAAPI driver mapping for iris DRI driver
+* VA/X11: enable driver candidate selection for DRI2
+* Add SCC flags to enable/disable features
+* fix: Fix HDR10 MaxCLL and MaxFALL documentation
+* Add VAProfileHEVCSccMain444_10 for HEVC
+* change the compatible list to be dynamic one
+* trace:Convert VAProfileAV1Profile0 VAProfileAV1Profile1 to string
+
+version 2.7.0 - 26.Mar.2020
+* trace: av1 decode buffers trace
+* trace: Add HEVC REXT and SCC trace for decoding.
+* Add av1 decode interfaces
+* Fix crashes on system without supported hardware by PR #369.
+* Add 2 FourCC for 10bit RGB(without Alpha) format: X2R10G10B10 and X2B10G10R10.
+* Fix android build issue #365 and remove some trailing whitespace
+* Adjust call sequence to ensure authenticate operation is executed to fix #355
 
 version 2.6.0 - 15.Dec.2019
 * enable the mutiple driver selection logic and enable it for DRM.
