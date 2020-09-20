@@ -113,7 +113,9 @@ libva.so.2:vaSetSubpictureChromakey
 libva.so.2:vaSetSubpictureGlobalAlpha
 libva.so.2:vaSetSubpictureImage
 libva.so.2:vaStatusStr
+libva.so.2:vaSyncBuffer
 libva.so.2:vaSyncSurface
+libva.so.2:vaSyncSurface2
 libva.so.2:vaTerminate
 libva.so.2:vaUnlockSurface
 libva.so.2:vaUnmapBuffer
