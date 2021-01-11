@@ -49,6 +49,7 @@ libva.so.2:vaBufferInfo
 libva.so.2:vaBufferSetNumElements
 libva.so.2:vaBufferTypeStr
 libva.so.2:vaConfigAttribTypeStr
+libva.so.2:vaCopy
 libva.so.2:vaCreateBuffer
 libva.so.2:vaCreateBuffer2
 libva.so.2:vaCreateConfig
