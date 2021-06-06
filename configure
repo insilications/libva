@@ -1,0 +1,6 @@
+-Ddriverdir
+-Ddisable_drm
+-Dwith_x11
+-Dwith_glx
+-Dwith_wayland
+-Denable_docs
