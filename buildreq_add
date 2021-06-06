@@ -3,3 +3,4 @@
 buildreq-meson
 doxygen
 sed
+ninja

@@ -11,8 +11,10 @@ Source0  : file:///aot/build/clearlinux/packages/libva/libva-v2.11.0.pre1.tar.gz
 Summary  : Userspace Video Acceleration (VA) core interface
 Group    : Development/Tools
 License  : LGPL-2.1+
+Requires: libva-lib = %{version}-%{release}
 BuildRequires : buildreq-meson
 BuildRequires : doxygen
+BuildRequires : ninja
 BuildRequires : pkgconfig(gl)
 BuildRequires : pkgconfig(libdrm)
 BuildRequires : pkgconfig(wayland-client)
@@ -29,6 +31,33 @@ BuildRequires : sed
 [![Build Status](https://travis-ci.org/intel/libva.svg?branch=master)](https://travis-ci.org/intel/libva)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/11605/badge.svg)](https://scan.coverity.com/projects/intel-libva)
 
+%package dev
+Summary: dev components for the libva package.
+Group: Development
+Requires: libva-lib = %{version}-%{release}
+Provides: libva-devel = %{version}-%{release}
+Requires: libva = %{version}-%{release}
+
+%description dev
+dev components for the libva package.
+
+
+%package doc
+Summary: doc components for the libva package.
+Group: Documentation
+
+%description doc
+doc components for the libva package.
+
+
+%package lib
+Summary: lib components for the libva package.
+Group: Libraries
+
+%description lib
+lib components for the libva package.
+
+
 %prep
 %setup -q -n libva
 cd %{_builddir}/libva
@@ -39,7 +68,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622992456
+export SOURCE_DATE_EPOCH=1622992790
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -88,12 +117,11 @@ export PATH="$PATH:/usr/local/cuda/bin:/usr/nvidia/bin:/usr/bin/haswell:/usr/bin
 export CPATH="$CPATH:/usr/local/cuda/include"
 #
 ## altflags1 end
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=release -Ddefault_library=both -Ddriverdir \
--Ddisable_drm \
--Dwith_x11 \
--Dwith_glx \
--Dwith_wayland \
--Denable_docs  builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=release -Ddefault_library=both -Ddisable_drm=false \
+-Dwith_x11=yes \
+-Dwith_glx=yes \
+-Dwith_wayland=yes \
+-Denable_docs=true  builddir
 ninja --verbose %{?_smp_mflags} -v -C builddir
 
 
@@ -102,3 +130,67 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
 %defattr(-,root,root,-)
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/va/va.h
+/usr/include/va/va_backend.h
+/usr/include/va/va_backend_glx.h
+/usr/include/va/va_backend_prot.h
+/usr/include/va/va_backend_vpp.h
+/usr/include/va/va_backend_wayland.h
+/usr/include/va/va_compat.h
+/usr/include/va/va_dec_av1.h
+/usr/include/va/va_dec_hevc.h
+/usr/include/va/va_dec_jpeg.h
+/usr/include/va/va_dec_vp8.h
+/usr/include/va/va_dec_vp9.h
+/usr/include/va/va_dri2.h
+/usr/include/va/va_dricommon.h
+/usr/include/va/va_drm.h
+/usr/include/va/va_drmcommon.h
+/usr/include/va/va_egl.h
+/usr/include/va/va_enc_h264.h
+/usr/include/va/va_enc_hevc.h
+/usr/include/va/va_enc_jpeg.h
+/usr/include/va/va_enc_mpeg2.h
+/usr/include/va/va_enc_vp8.h
+/usr/include/va/va_enc_vp9.h
+/usr/include/va/va_fei.h
+/usr/include/va/va_fei_h264.h
+/usr/include/va/va_fei_hevc.h
+/usr/include/va/va_glx.h
+/usr/include/va/va_prot.h
+/usr/include/va/va_str.h
+/usr/include/va/va_tpi.h
+/usr/include/va/va_version.h
+/usr/include/va/va_vpp.h
+/usr/include/va/va_wayland.h
+/usr/include/va/va_x11.h
+/usr/lib64/libva-drm.so
+/usr/lib64/libva-glx.so
+/usr/lib64/libva-wayland.so
+/usr/lib64/libva-x11.so
+/usr/lib64/libva.so
+/usr/lib64/pkgconfig/libva-drm.pc
+/usr/lib64/pkgconfig/libva-glx.pc
+/usr/lib64/pkgconfig/libva-wayland.pc
+/usr/lib64/pkgconfig/libva-x11.pc
+/usr/lib64/pkgconfig/libva.pc
+
+%files doc
+%defattr(0644,root,root,0755)
+%doc /usr/share/doc/libva/*
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libva-drm.so.2
+/usr/lib64/libva-drm.so.2.1200.0
+/usr/lib64/libva-glx.so.2
+/usr/lib64/libva-glx.so.2.1200.0
+/usr/lib64/libva-wayland.so.2
+/usr/lib64/libva-wayland.so.2.1200.0
+/usr/lib64/libva-x11.so.2
+/usr/lib64/libva-x11.so.2.1200.0
+/usr/lib64/libva.so.2
+/usr/lib64/libva.so.2.1200.0
