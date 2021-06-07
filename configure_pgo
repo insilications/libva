@@ -2,4 +2,4 @@
 -Dwith_x11=yes
 -Dwith_glx=yes
 -Dwith_wayland=yes
--Denable_docs=true
+-Denable_docs=false

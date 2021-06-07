@@ -1,0 +1,61 @@
+From 93afbf5ababc863323e16d9e020f2808a84297b4 Mon Sep 17 00:00:00 2001
+From: Francisco Boni <boboniboni@gmail.com>
+Date: Mon, 7 Jun 2021 11:57:03 -0300
+Subject: [PATCH] Enable both_libraries static/shared build
+
+---
+ va/meson.build | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/va/meson.build b/va/meson.build
+index 69273de..f63230a 100644
+--- a/va/meson.build
++++ b/va/meson.build
+@@ -58,7 +58,7 @@ libva_sym_path = '@0@/@1@'.format(meson.current_source_dir(), libva_sym)
+ 
+ install_headers(libva_headers, subdir : 'va')
+ 
+-libva = shared_library(
++libva = both_libraries(
+   'va',
+   sources : libva_sources +
+             libva_headers +
+@@ -107,7 +107,7 @@ if WITH_DRM
+ 
+   install_headers(libva_drm_headers, subdir : 'va')
+ 
+-  libva_drm = shared_library(
++  libva_drm = both_libraries(
+     'va-drm',
+     sources : libva_drm_sources +
+               libva_drm_headers +
+@@ -151,7 +151,7 @@ if WITH_X11
+ 
+   deps = [ libdrm_dep, x11_dep, xext_dep, xfixes_dep, libva_dep ]
+ 
+-  libva_x11 = shared_library(
++  libva_x11 = both_libraries(
+     'va-x11',
+     sources : libva_x11_sources +
+               libva_x11_headers +
+@@ -187,7 +187,7 @@ if WITH_GLX
+ 
+   deps = [ gl_dep, libva_x11_dep ]
+ 
+-  libva_glx = shared_library(
++  libva_glx = both_libraries(
+     'va-glx',
+     sources : libva_glx_sources +
+               libva_glx_headers +
+@@ -240,7 +240,7 @@ if WITH_WAYLAND
+ 
+   deps = [ libdrm_dep, wayland_dep, libva_dep ]
+ 
+-  libva_wayland = shared_library(
++  libva_wayland = both_libraries(
+     'va-wayland',
+     sources : libva_wayland_sources +
+               libva_wayland_headers +
+-- 
+2.31.1
+

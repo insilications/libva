@@ -5,16 +5,67 @@
 %define keepstatic 1
 Name     : libva
 Version  : 2.11.0.pre1
-Release  : 301
+Release  : 302
 URL      : file:///aot/build/clearlinux/packages/libva/libva-v2.11.0.pre1.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/libva/libva-v2.11.0.pre1.tar.gz
 Summary  : Userspace Video Acceleration (VA) core interface
 Group    : Development/Tools
 License  : LGPL-2.1+
 Requires: libva-lib = %{version}-%{release}
+BuildRequires : Z3-dev
+BuildRequires : Z3-staticdev
 BuildRequires : buildreq-meson
 BuildRequires : doxygen
+BuildRequires : gcc-dev32
+BuildRequires : gcc-libgcc32
+BuildRequires : gcc-libstdc++32
+BuildRequires : glibc-dev32
+BuildRequires : glibc-libc32
+BuildRequires : libX11-data
+BuildRequires : libX11-dev
+BuildRequires : libX11-lib
+BuildRequires : libXScrnSaver
+BuildRequires : libXScrnSaver-dev
+BuildRequires : libXScrnSaver-lib
+BuildRequires : libXau-dev
+BuildRequires : libXau-lib
+BuildRequires : libXcursor-dev
+BuildRequires : libXcursor-lib
+BuildRequires : libXdamage-dev
+BuildRequires : libXdamage-lib
+BuildRequires : libXdmcp-dev
+BuildRequires : libXdmcp-lib
+BuildRequires : libXext-dev
+BuildRequires : libXext-lib
+BuildRequires : libXfont2-dev
+BuildRequires : libXft-dev
+BuildRequires : libXft-lib
+BuildRequires : libXi-dev
+BuildRequires : libXi-lib
+BuildRequires : libXrender-dev
+BuildRequires : libXrender-lib
+BuildRequires : libXtst-dev
+BuildRequires : libXtst-lib
+BuildRequires : libXxf86vm-dev
+BuildRequires : libXxf86vm-lib
+BuildRequires : libva-vdpau-driver-chromium
+BuildRequires : libva-vdpau-driver-chromium-dev
+BuildRequires : libxcb-dev
+BuildRequires : libxcb-lib
+BuildRequires : libxkbcommon
+BuildRequires : libxkbcommon-dev
+BuildRequires : libxml2-dev
+BuildRequires : libxml2-staticdev
+BuildRequires : libxslt-bin
+BuildRequires : libxslt-dev
+BuildRequires : libxslt-staticdev
 BuildRequires : ninja
+BuildRequires : pkgconfig(32gl)
+BuildRequires : pkgconfig(32libdrm)
+BuildRequires : pkgconfig(32wayland-client)
+BuildRequires : pkgconfig(32x11)
+BuildRequires : pkgconfig(32xext)
+BuildRequires : pkgconfig(32xfixes)
 BuildRequires : pkgconfig(gl)
 BuildRequires : pkgconfig(libdrm)
 BuildRequires : pkgconfig(wayland-client)
@@ -22,9 +73,77 @@ BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xext)
 BuildRequires : pkgconfig(xfixes)
 BuildRequires : sed
+BuildRequires : wayland
+BuildRequires : wayland-dev
+BuildRequires : weston
+BuildRequires : wmctrl
+BuildRequires : xauth
+BuildRequires : xcb-proto
+BuildRequires : xcb-proto-dev
+BuildRequires : xcb-util-cursor-dev
+BuildRequires : xcb-util-dev
+BuildRequires : xcb-util-keysyms-dev
+BuildRequires : xcb-util-renderutil-dev
+BuildRequires : xcb-util-wm-dev
+BuildRequires : xcb-util-xrm-dev
+BuildRequires : xclip
+BuildRequires : xdg-dbus-proxy
+BuildRequires : xdg-desktop-portal
+BuildRequires : xdg-desktop-portal-dev
+BuildRequires : xdg-desktop-portal-gtk
+BuildRequires : xdg-desktop-portal-kde
+BuildRequires : xdg-user-dirs
+BuildRequires : xdg-user-dirs-gtk
+BuildRequires : xdg-utils
+BuildRequires : xdotool
+BuildRequires : xdpyinfo
+BuildRequires : xf86-input-libinput
+BuildRequires : xf86-video-amdgpu
+BuildRequires : xf86-video-ati
+BuildRequires : xf86-video-fbdev
+BuildRequires : xf86-video-nouveau
+BuildRequires : xf86-video-qxl
+BuildRequires : xf86-video-vboxvideo
+BuildRequires : xf86-video-vesa
+BuildRequires : xf86-video-vmware
+BuildRequires : xfontsel
+BuildRequires : xhost
+BuildRequires : xinit
+BuildRequires : xinput
+BuildRequires : xkbcomp
+BuildRequires : xkeyboard-config
+BuildRequires : xkill
+BuildRequires : xmodmap
+BuildRequires : xorg-server
+BuildRequires : xorg-server-dev
+BuildRequires : xorgproto
+BuildRequires : xorgproto-dev
+BuildRequires : xprop
+BuildRequires : xrandr
+BuildRequires : xrdb
+BuildRequires : xrdp
+BuildRequires : xrestop
+BuildRequires : xscreensaver
+BuildRequires : xsel
+BuildRequires : xset
+BuildRequires : xsetroot
+BuildRequires : xvfb-run
+BuildRequires : xwd
+BuildRequires : xwininfo
+BuildRequires : xz
+BuildRequires : xz-dev
+BuildRequires : xz-staticdev
+BuildRequires : yaml-cpp
+BuildRequires : yaml-cpp-dev
+BuildRequires : zlib
+BuildRequires : zlib-dev
+BuildRequires : zlib-staticdev
+BuildRequires : zstd-dev
+BuildRequires : zstd-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-Enable-both_libraries-static-shared-build.patch
 
 %description
 [![Stories in Ready](https://badge.waffle.io/intel/libva.png?label=ready&title=Ready)](http://waffle.io/intel/libva)
@@ -42,14 +161,6 @@ Requires: libva = %{version}-%{release}
 dev components for the libva package.
 
 
-%package doc
-Summary: doc components for the libva package.
-Group: Documentation
-
-%description doc
-doc components for the libva package.
-
-
 %package lib
 Summary: lib components for the libva package.
 Group: Libraries
@@ -58,9 +169,19 @@ Group: Libraries
 lib components for the libva package.
 
 
+%package staticdev
+Summary: staticdev components for the libva package.
+Group: Default
+Requires: libva-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the libva package.
+
+
 %prep
 %setup -q -n libva
 cd %{_builddir}/libva
+%patch1 -p1
 
 %build
 unset http_proxy
@@ -68,7 +189,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622992790
+export SOURCE_DATE_EPOCH=1623078314
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -121,7 +242,7 @@ CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --
 -Dwith_x11=yes \
 -Dwith_glx=yes \
 -Dwith_wayland=yes \
--Denable_docs=true  builddir
+-Denable_docs=false  builddir
 ninja --verbose %{?_smp_mflags} -v -C builddir
 
 
@@ -178,10 +299,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/pkgconfig/libva-x11.pc
 /usr/lib64/pkgconfig/libva.pc
 
-%files doc
-%defattr(0644,root,root,0755)
-%doc /usr/share/doc/libva/*
-
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libva-drm.so.2
@@ -194,3 +311,11 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/libva-x11.so.2.1200.0
 /usr/lib64/libva.so.2
 /usr/lib64/libva.so.2.1200.0
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/libva-drm.a
+/usr/lib64/libva-glx.a
+/usr/lib64/libva-wayland.a
+/usr/lib64/libva-x11.a
+/usr/lib64/libva.a
