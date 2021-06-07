@@ -110,7 +110,6 @@ xvfb-run
 libva-vdpau-driver-chromium
 libva-vdpau-driver-chromium-dev
 libva-intel-driver
-libva-intel-driver-dev
 xwd
 xwininfo
 xz
