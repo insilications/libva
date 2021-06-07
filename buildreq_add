@@ -9,6 +9,8 @@ glibc-dev32
 glibc-libc32
 libva-vdpau-driver-chromium
 libva-vdpau-driver-chromium-dev
+libvdpau
+libvdpau-dev
 libX11-data
 libX11-dev
 libX11-lib
@@ -45,6 +47,9 @@ libXtst-dev
 libXtst-lib
 libXxf86vm-dev
 libXxf86vm-lib
+mesa
+mesa-dev
+mesa-lib
 ninja
 sed
 wayland
@@ -102,6 +107,10 @@ xsel
 xset
 xsetroot
 xvfb-run
+libva-vdpau-driver-chromium
+libva-vdpau-driver-chromium-dev
+libva-intel-driver
+libva-intel-driver-dev
 xwd
 xwininfo
 xz
