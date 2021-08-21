@@ -1,5 +1,4 @@
 export DISPLAY=:0
-export __GL_ALLOW_UNOFFICIAL_PROTOCOL=1
 export __GL_SYNC_TO_VBLANK=0
 export __GL_SYNC_DISPLAY_DEVICE=DFP-1
 export VDPAU_NVIDIA_SYNC_DISPLAY_DEVICE=DFP-1
@@ -22,4 +21,4 @@ export LIBVA_DRIVER_NAME=vdpau
 export LIBVA_DRIVERS_PATH=/usr/lib64/dri
 export GTK_RC_FILES=/etc/gtk/gtkrc
 export FONTCONFIG_PATH=/usr/share/defaults/fonts
-meson test --verbose --num-processes 16 -C builddir || :
+meson test --print-errorlogs --verbose --num-processes 1 -C builddir || :

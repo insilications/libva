@@ -7,6 +7,7 @@ gcc-libgcc32
 gcc-libstdc++32
 glibc-dev32
 glibc-libc32
+libva-intel-driver
 libva-vdpau-driver-chromium
 libva-vdpau-driver-chromium-dev
 libvdpau
@@ -107,9 +108,6 @@ xsel
 xset
 xsetroot
 xvfb-run
-libva-vdpau-driver-chromium
-libva-vdpau-driver-chromium-dev
-libva-intel-driver
 xwd
 xwininfo
 xz
@@ -117,8 +115,6 @@ xz-dev
 xz-staticdev
 yaml-cpp
 yaml-cpp-dev
-Z3-dev
-Z3-staticdev
 zlib
 zlib-dev
 zlib-staticdev
