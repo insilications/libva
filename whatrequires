@@ -1,4 +1,8 @@
 # This file contains recursive sources that require this package
 libva-dev
 libva-dev32
+libva-staticdev
+libva-staticdev32
+libva-utils
 libyami-dev
+spice-gtk-dev
