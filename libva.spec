@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : libva
 Version  : 2.12.0
-Release  : 305
+Release  : 306
 URL      : file:///aot/build/clearlinux/packages/libva/libva-v2.12.0.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/libva/libva-v2.12.0.tar.gz
 Summary  : Userspace Video Acceleration (VA) core interface
@@ -232,7 +232,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1630048722
+export SOURCE_DATE_EPOCH=1630053094
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
